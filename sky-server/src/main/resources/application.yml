@@ -1,0 +1,69 @@
+server:
+  port: 8080
+
+#spring:
+#  profiles:
+#    active: dev
+#  main:
+#    allow-circular-references: true
+#  datasource:
+#    druid:
+#      driver-class-name: ${sky.datasource.driver-class-name}
+#      url: jdbc:mysql://${sky.datasource.host}:${sky.datasource.port}/${sky.datasource.database}?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
+#      username: ${sky.datasource.username}
+#      password: ${sky.datasource.password}
+
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/sky_take_out
+    username: root
+    password: 1234
+
+
+
+
+mybatis:
+  #mapper配置文件
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.sky.entity
+  configuration:
+    #开启驼峰命名
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
+logging:
+  level:
+    com:
+      sky:
+        mapper: debug
+        service: info
+        controller: info
+
+sky:
+  jwt:
+    # 设置jwt签名加密时使用的秘钥
+    admin-secret-key: Asuka
+    # 设置jwt过期时间
+    admin-ttl: 6000000
+    # 设置前端传递过来的令牌名称
+    admin-token-name: token
+
+
+#knife4j:
+#  enable: true
+#  openapi:
+#    title: 苍穹外卖接口文档
+#    description: "苍穹外卖接口文档"
+#    email: 1626928042@qq.com
+#    concat: Asuka
+#    url:
+#    version: v2.0
+#    group:
+#      default:
+#        group-name: default
+#        api-rule: package
+#        api-rule-resources:
+#          - com.asuka.controller
