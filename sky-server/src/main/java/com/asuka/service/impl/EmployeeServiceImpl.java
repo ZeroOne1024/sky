@@ -6,10 +6,14 @@ import com.asuka.constant.StatusConstant;
 import com.asuka.context.BaseContext;
 import com.asuka.dto.EmployeeDTO;
 import com.asuka.dto.EmployeeLoginDTO;
+import com.asuka.dto.EmployeePageQueryDTO;
 import com.asuka.entity.Employee;
 import com.asuka.exception.AccountNotFoundException;
 import com.asuka.mapper.EmployeeMapper;
+import com.asuka.result.PageResult;
 import com.asuka.service.EmployeeService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Asuka
@@ -85,6 +92,21 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
 
 
+    }
+
+    @Override
+    public PageResult selectPage(EmployeePageQueryDTO query) {
+        //List<Employee> list = employeeMapper.selectPage(page,pageSize,name);
+
+
+        PageHelper.startPage(query.getPage(), query.getPageSize());
+        Page<Employee> p = (Page<Employee>) employeeMapper.selectPage(query);
+
+        PageResult pageResult = new PageResult();
+        pageResult.setTotal(p.getTotal());
+        pageResult.setRecords(p.getResult());
+
+        return pageResult;
     }
 
 

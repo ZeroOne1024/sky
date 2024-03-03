@@ -2,8 +2,10 @@ package com.asuka.controller.admin;
 
 import com.asuka.constant.JwtClaimsConstant;
 import com.asuka.dto.EmployeeDTO;
+import com.asuka.dto.EmployeePageQueryDTO;
 import com.asuka.entity.Employee;
 import com.asuka.properties.JwtProperties;
+import com.asuka.result.PageResult;
 import com.asuka.service.EmployeeService;
 import com.asuka.utils.JwtUtil;
 import com.asuka.vo.EmployeeLoginVO;
@@ -11,10 +13,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.asuka.result.Result;
 import com.asuka.dto.EmployeeLoginDTO;
 
@@ -82,7 +81,14 @@ public class EmployeeController {
     }
 
 
+    @GetMapping("/page")
+    public Result<PageResult> select(EmployeePageQueryDTO query){
+        log.info("分页查询请求: {}",query);
 
+        PageResult pageResult = employeeService.selectPage(query);
+
+        return Result.success(pageResult);
+    }
 
 
 

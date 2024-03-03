@@ -2,9 +2,12 @@ package com.asuka.mapper;
 
 import com.asuka.dto.EmployeeDTO;
 import com.asuka.dto.EmployeeLoginDTO;
+import com.asuka.dto.EmployeePageQueryDTO;
 import com.asuka.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 @Mapper
 public interface EmployeeMapper {
@@ -20,7 +23,5 @@ public interface EmployeeMapper {
     Integer insert(Employee employee);
 
 
-
-
-
+    List<Employee> selectPage(EmployeePageQueryDTO query);
 }

@@ -2,7 +2,11 @@ package com.asuka.service;
 
 import com.asuka.dto.EmployeeDTO;
 import com.asuka.dto.EmployeeLoginDTO;
+import com.asuka.dto.EmployeePageQueryDTO;
 import com.asuka.entity.Employee;
+import com.asuka.result.PageResult;
+
+import java.util.Map;
 
 /**
  * @author Asuka
@@ -15,4 +19,5 @@ public interface EmployeeService {
     void insert(EmployeeDTO employeeDTO);
 
 
+    PageResult selectPage(EmployeePageQueryDTO query);
 }
