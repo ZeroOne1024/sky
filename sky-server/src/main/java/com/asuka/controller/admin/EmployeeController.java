@@ -91,6 +91,34 @@ public class EmployeeController {
     }
 
 
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用禁用状态")
+    public Result changeStatus(@PathVariable Integer status, Long id){
+        log.info("id {} 状态修改为 {}",id,status);
+
+        employeeService.changeStatus(status,id);
+        return Result.success();
+    }
+
+
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询")
+    public Result<Employee> selectById(@PathVariable Long id){
+        log.info("查询id为{}的用户",id);
+        Employee e = employeeService.selectById(id);
+        return Result.success(e);
+    }
+
+
+    @PutMapping
+    @ApiOperation("修改员工数据")
+    public Result updata(@RequestBody Employee employee){
+        log.info("修改员工数据为 {}",employee);
+        employeeService.updata(employee);
+        return Result.success();
+    }
+
+
 
 
 

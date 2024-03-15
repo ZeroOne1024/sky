@@ -34,6 +34,10 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             return true;
         }
 
+        if(request.getRequestURL().toString().contains("admin/common/image/")){
+            return true;
+        }
+
         String token = request.getHeader("token");
 
         try {

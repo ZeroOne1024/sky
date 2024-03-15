@@ -66,9 +66,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void insert(EmployeeDTO employeeDTO) {
-        /*if(employeeDTO.getIdNumber().isEmpty() || employeeDTO.getName().isEmpty() || employeeDTO.getPhone().isEmpty() || employeeDTO.getSex().isEmpty() || employeeDTO.getUsername().isEmpty()){
-            throw new RuntimeException();
-        }*/
+
         log.info("当前服务接口线程id: {} ",Thread.currentThread().getId());
 
         Employee employee = new Employee();
@@ -81,22 +79,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         String password = DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes());
         employee.setPassword(password);
 
-        //设置创建和更新时间
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-
-        // nTODO 后续改成获取当前登录用户id
-        employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
 
         employeeMapper.insert(employee);
-
-
     }
 
     @Override
     public PageResult selectPage(EmployeePageQueryDTO query) {
-        //List<Employee> list = employeeMapper.selectPage(page,pageSize,name);
+
+
 
 
         PageHelper.startPage(query.getPage(), query.getPageSize());
@@ -109,5 +99,29 @@ public class EmployeeServiceImpl implements EmployeeService {
         return pageResult;
     }
 
+    @Override
+    public void changeStatus(Integer status, Long id) {
 
+        Employee employee = Employee.builder()
+                                .id(id)
+                                .status(status)
+                                .build();
+
+
+        employeeMapper.update(employee);
+    }
+
+
+    @Override
+    public Employee selectById(Long id) {
+
+        return employeeMapper.selectById(id);
+    }
+
+
+    @Override
+    public void updata(Employee employee) {
+
+        employeeMapper.update(employee);
+    }
 }
