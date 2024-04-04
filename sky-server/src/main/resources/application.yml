@@ -15,6 +15,8 @@ server:
 
 
 spring:
+  profiles:
+    active: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/sky_take_out
@@ -24,6 +26,12 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 100MB
+  data:
+    redis:
+      prot: ${sky.redis.prot}
+#      password: ${sky.redis.password}
+      database: ${sky.redis.database}
+      host: ${sky.redis.host}
 
 
 
@@ -53,7 +61,12 @@ sky:
     admin-ttl: 360000000
     # 设置前端传递过来的令牌名称
     admin-token-name: token
-
+    user-secret-key: sumika
+    user-ttl: 360000000
+    user-token-name: authentication
+  wechat:
+    appid: ${sky.wechat.appid}
+    secret: ${sky.wechat.secret}
 
 #knife4j:
 #  enable: true

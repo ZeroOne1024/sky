@@ -38,7 +38,7 @@ public class JwtTokenAdminInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String token = request.getHeader("token");
+        String token = request.getHeader(jwtProperties.getAdminTokenName());
 
         try {
             log.info("jwt校验:{}",token);

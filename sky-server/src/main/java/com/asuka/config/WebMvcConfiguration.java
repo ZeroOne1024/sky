@@ -2,6 +2,7 @@ package com.asuka.config;
 
 
 import com.asuka.interceptor.JwtTokenAdminInterceptor;
+import com.asuka.interceptor.JwtTokenUserInterceptor;
 import com.asuka.json.JacksonObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,9 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Autowired
     private JwtTokenAdminInterceptor jwtTokenAdminInterceptor;
 
+    @Autowired
+    private JwtTokenUserInterceptor jwtTokenUserInterceptor;
+
     @Override
     protected void addInterceptors(InterceptorRegistry registry){
         log.info("开始注册拦截器...");
@@ -38,6 +42,13 @@ public class WebMvcConfiguration extends WebMvcConfigurationSupport {
         registry.addInterceptor(jwtTokenAdminInterceptor)
                 .addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin/employee/login");
+
+        registry.addInterceptor(jwtTokenUserInterceptor)
+                        .addPathPatterns("/user/**")
+                        .excludePathPatterns("/user/user/login")
+                        .excludePathPatterns("/user/shop/status");
+
+
         log.info("拦截器注册完毕...");
     }
 
