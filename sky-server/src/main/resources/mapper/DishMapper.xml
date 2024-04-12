@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asuka.mapper.DishMapper">
+
+    <insert id="insertDish" useGeneratedKeys="true" keyProperty="id">
+        insert into
+        dish
+        (name, category_id, price, image, description, status, create_time, update_time, create_user, update_user)
+        VALUES
+        (#{name},#{categoryId},#{price},#{image},#{description},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})
+    </insert>
+
+
+    <select id="selectDishCateg" resultType="com.asuka.vo.DishVO">
+        select
+            d.id, d.name, d.category_id, d.price, d.image, d.description, d.status, d.create_time, d.update_time, d.create_user, d.update_user,c.name as categoryName
+        from
+            dish d left outer join category c on d.category_id = c.id
+        <where>
+            <if test="name != null and name != ''">
+                and d.name like concat('%',#{name},'%')
+            </if>
+            <if test="categoryId != null">
+                and d.category_id=#{categoryId}
+            </if>
+            <if test="status != null">
+                and d.status=#{status}
+            </if>
+        </where>
+        order by d.create_time desc
+
+    </select>
+
+
+    <delete id="delete">
+        delete from
+            dish
+        where
+            id in
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+    </delete>
+
+
+    <select id="selectDishCategoryById" resultType="com.asuka.vo.DishVO">
+        select
+            d.id, d.name, d.category_id, d.price, d.image, d.description, d.status, d.update_time, c.name as categoryName
+        from
+            dish d left outer join category c on d.category_id = c.id
+        where
+            d.id = #{id}
+        order by d.create_time desc
+    </select>
+
+    <select id="getById" resultType="com.asuka.entity.Dish">
+        select
+            id, name, category_id, price, image, description, status, create_time, update_time, create_user, update_user
+        from dish
+        <where>
+            id=
+            <foreach collection="ids" item="id" separator="," open="(" close=")">
+                #{id}
+            </foreach>
+        </where>
+
+
+
+    </select>
+
+
+
+    <update id="update">
+        update
+            dish
+        <set>
+            <if test="name != null and name != '' ">
+                name=#{name},
+            </if>
+            <if test="categoryId != null">
+                category_id=#{categoryId},
+            </if>
+            <if test="price != null">
+                price=#{price},
+            </if>
+            <if test="image != null and image != '' ">
+                image=#{image},
+            </if>
+            <if test="description != null and description != ''">
+                description=#{description},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time=#{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time=#{updateTime},
+            </if>
+            <if test="createUser != null">
+                create_user=#{createUser},
+            </if>
+            <if test="updateUser != null">
+                update_user=#{updateUser},
+            </if>
+        </set>
+        where
+            id = #{id}
+    </update>
+
+
+    <select id="selectList" resultType="com.asuka.vo.DishVO">
+
+        select
+            id, name, category_id, price, image, description, status, create_time, update_time, create_user, update_user
+        from
+            dish
+        <where>
+            <if test="id != null">
+                and id=#{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name=#{name}
+            </if>
+            <if test="categoryId != null">
+                and category_id=#{categoryId}
+            </if>
+            <if test="status != null">
+                and status=#{status}
+            </if>
+            <if test="description != null and description != ''">
+                and description like cancat('%',#{description},'%')
+            </if>
+        </where>
+
+
+
+    </select>
+
+
+</mapper>

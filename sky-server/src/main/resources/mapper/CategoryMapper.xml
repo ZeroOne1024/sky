@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.asuka.mapper.CategoryMapper">
+
+    <insert id="insertCategory">
+        insert into
+            category
+            (type, name, sort, status, create_time, update_time, create_user, update_user)
+        VALUES
+            (#{type},#{name},#{sort},#{status},#{createTime},#{updateTime},#{createUser},#{updateUser})
+    </insert>
+
+
+    <select id="select" resultType="com.asuka.entity.Category">
+        select
+            id, type, name, sort, status, create_time, update_time, create_user, update_user
+        from
+            category
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="status != null">
+            and status = #{status}
+            </if>
+        </where>
+
+        order by
+            sort desc,
+            update_time desc
+
+    </select>
+
+    <update id="updata">
+        update
+            category
+        <set>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            update_time = #{updateTime},
+            update_user = #{updateUser}
+        </set>
+
+        where
+            id = #{id}
+
+    </update>
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

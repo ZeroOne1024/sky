@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.bind.annotation.PostMapping;
 import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
@@ -18,6 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2WebMvc;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableCaching
+@EnableScheduling // 开启任务调度
 @Slf4j
 public class SkyServerApplication {
 

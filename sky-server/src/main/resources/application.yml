@@ -67,6 +67,10 @@ sky:
   wechat:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
+  shop:
+    address: 广东省深圳市龙岗区龙城街道龙翔大道2188号D1宿舍楼
+  baidu:
+    ak: JRH2As5Q0OohFBkvOmD6kZPRBhwkABYa
 
 #knife4j:
 #  enable: true
